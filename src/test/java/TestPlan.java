@@ -5,6 +5,7 @@ import models.MyAccountModel;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.AfterSuite;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
 
@@ -20,7 +21,6 @@ public class TestPlan {
     @Test(testName = "Submit a valid login")
     public static void submitValidLogin() {
        //arrange
-
         MyAccountModel myAccountModel = new MyAccountModel(driver);
         //act
         AccountUtils.login(driver);
@@ -84,10 +84,14 @@ public class TestPlan {
         cartSummaryModel.validateOrderComplete();
 
 
-    }
 
+    }
+    @AfterTest //clear session data after every test
+    public static void cleanUpTest() {
+        driver.manage().deleteAllCookies();
+    }
     @AfterSuite
-    public static void cleanUp() {
+    public static void cleanUpSuite() {
         driver.manage().deleteAllCookies();
         driver.close();
     }
