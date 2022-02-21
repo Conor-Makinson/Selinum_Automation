@@ -4,23 +4,30 @@ import models.LoginPageModel;
 import models.MyAccountModel;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.testng.annotations.AfterSuite;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeSuite;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 
 public class TestPlan {
     private static final WebDriver driver = new ChromeDriver();
 
     @BeforeSuite
     public static void main(String[] args) {
-        // ChromeDriver location set up in Utils class
         System.setProperty("webdriver.chrome.driver", DriverUtils.CHROME_DRIVER_LOCATION);
+    }
+
+    @BeforeMethod //clear session data after every test
+    public static void cleanUpTest() {
+        driver.manage().deleteAllCookies();
+    }
+
+    @AfterSuite
+    public static void cleanUpSuite() {
+        driver.manage().deleteAllCookies();
+        driver.close();
     }
 
     @Test(testName = "Submit a valid login")
     public static void submitValidLogin() {
-       //arrange
+        //arrange
         MyAccountModel myAccountModel = new MyAccountModel(driver);
         //act
         AccountUtils.login(driver);
@@ -84,15 +91,6 @@ public class TestPlan {
         cartSummaryModel.validateOrderComplete();
 
 
+    }
 
-    }
-    @AfterTest //clear session data after every test
-    public static void cleanUpTest() {
-        driver.manage().deleteAllCookies();
-    }
-    @AfterSuite
-    public static void cleanUpSuite() {
-        driver.manage().deleteAllCookies();
-        driver.close();
-    }
 }
