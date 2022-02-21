@@ -36,7 +36,7 @@ public class TestPlan {
         myAccountModel.isOnPage();
     }
 
-    @Test(testName = "Submit a invalid email")
+    @Test(testName = "Submit an invalid email")
     public static void submitInvalidEmail() {
         //arrange
         driver.get(DriverUtils.BASE_URL);
@@ -49,7 +49,7 @@ public class TestPlan {
         loginPageModel.isEmailErrorDisplayed();
     }
 
-    @Test(testName = "Submit a invalid password")
+    @Test(testName = "Submit an invalid password")
     public static void submitInvalidPassword() {
         //arrange
         driver.get(DriverUtils.BASE_URL);
